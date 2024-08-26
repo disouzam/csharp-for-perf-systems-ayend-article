@@ -83,12 +83,16 @@ def gen_point_of_sale_data():
 
 
 def write_to_gzip_csv(number, filename):
+    counter = 0
     with gzip.open(filename, 'wt', newline='\n', encoding='utf-8') as file:
         fieldnames = ['UserID', 'ItemID', 'Quantity', 'Price', 'Date']
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
         for row in itertools.islice(gen_point_of_sale_data(), number):
             writer.writerow(row)
+            counter += 1
+            if counter % 1000 == 0:
+                print(f"{counter} records already written to CSV file ({filename})")
 
 
 if __name__ == "__main__":
