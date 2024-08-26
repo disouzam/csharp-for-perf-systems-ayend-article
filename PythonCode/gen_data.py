@@ -91,7 +91,7 @@ def write_to_gzip_csv(number, filename):
         for row in itertools.islice(gen_point_of_sale_data(), number):
             writer.writerow(row)
             counter += 1
-            if counter % 1000 == 0:
+            if counter % 10000 == 0:
                 print(f"{counter} records already written to CSV file ({filename})")
 
 
