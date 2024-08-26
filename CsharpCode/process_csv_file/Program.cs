@@ -1,8 +1,10 @@
-﻿namespace process_csv_file;
+﻿using System;
 
-class Program
+namespace process_csv_file;
+
+public static class Program
 {
-    static void Main(string[] args)
+    public static void Main(string[] args)
     {
         Console.WriteLine("Hello, World!");
     }
