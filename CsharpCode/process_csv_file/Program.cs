@@ -14,7 +14,8 @@ public static class Program
         using var fs = new FileStream(path: "E:\\GitHubRepos\\csharp-for-perf-systems-ayende-article\\data.csv.gz", mode: FileMode.Open);
         await foreach (var line in ZippedFileProcessing.GzipReadlAllLinesAsync(fs))
         {
-            Console.WriteLine(line);
+            // Do nothing
         }
+        Console.WriteLine("The end");
     }
 }
