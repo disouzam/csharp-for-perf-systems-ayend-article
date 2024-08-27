@@ -38,4 +38,29 @@ internal static class DataConsolidation
                 });
     }
 
+    /// <summary>
+    /// Listing 3: Manually aggregating over the records
+    /// </summary>
+    /// <param name="input"></param>
+    /// <remarks>
+    /// Code extracted from https://www.codemag.com/article/2403091
+    /// </remarks>
+    public static async Task<Dictionary<long, UserSales>> StreamReaderAndDictionary(Stream input)
+    {
+        var sales = new Dictionary<long, UserSales>();
+        await foreach (var line in ZippedFileProcessing.GzipReadlAllLinesAsync(input).Skip(1))
+        {
+            var fields = line.Split(',');
+            var uid = long.Parse(fields[0]);
+            int quantity = int.Parse(fields[2]);
+            decimal price = decimal.Parse(fields[3]);
+
+            if (!sales.TryGetValue(uid, out var stats))
+                sales[uid] = stats = new UserSales();
+
+            stats.Total += price * quantity;
+            stats.Quantity += quantity;
+        }
+        return sales;
+    }
 }
