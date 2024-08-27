@@ -16,7 +16,13 @@ public static class Program
         var userSalesConsolidation = DataConsolidation.Linq(fs);
         var result = userSalesConsolidation.Result;
 
-        Console.WriteLine(result.Count);
+        foreach (var individualResult in result)
+        {
+            var userId = individualResult.Key;
+            var salesResults = individualResult.Value;
+            Console.WriteLine($"UserId: {userId} - Quantity: {salesResults.Quantity} - Total: {salesResults.Total}");
+        }
+
         Console.WriteLine("The end");
     }
 }
