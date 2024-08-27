@@ -13,7 +13,7 @@ public static class Program
 
         using var fs = new FileStream(path: "E:\\GitHubRepos\\csharp-for-perf-systems-ayende-article\\data.csv.gz", mode: FileMode.Open);
 
-        var userSalesConsolidation = DataConsolidation.StreamReaderAndDictionary(fs);
+        var userSalesConsolidation = DataConsolidation.PipelineAsync(fs);
         var result = userSalesConsolidation.Result;
 
         foreach (var individualResult in result)
