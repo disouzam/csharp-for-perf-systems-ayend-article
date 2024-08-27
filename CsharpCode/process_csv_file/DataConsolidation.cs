@@ -86,7 +86,7 @@ internal static class DataConsolidation
             var valueTask = pipeReader.ReadAsync();
             var read = valueTask.IsCompleted ? valueTask.Result :
               await valueTask.AsTask();
-            ProcessLines(pipeReader, read, salesData, ref header);
+            LineProcessing.ProcessLines(pipeReader, read, salesData, ref header);
             if (read.IsCompleted)
                 break;
         }
