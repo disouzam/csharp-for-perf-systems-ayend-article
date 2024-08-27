@@ -8,10 +8,12 @@ namespace process_csv_file;
 internal static class DataConsolidation
 {
     /// <summary>
-    /// Code extracted from Listing 2 on https://www.codemag.com/article/2403091
+    /// Listing 2: Computing total and quantity per user using Linq
     /// </summary>
     /// <param name="input"></param>
-    /// <returns></returns>
+    /// <remarks>
+    /// Code extracted from https://www.codemag.com/article/2403091
+    /// </remarks>
     public static ValueTask<Dictionary<long, UserSales>> Linq(Stream input)
     {
         return (from l in ZippedFileProcessing.GzipReadlAllLinesAsync(input)
