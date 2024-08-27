@@ -20,7 +20,7 @@ internal static class DataConsolidation
                 let item = new
                 {
                     UserId = long.Parse(flds[0]),
-                    Qty = int.Parse(flds[2]),
+                    Quantity = int.Parse(flds[2]),
                     Price = decimal.Parse(flds[3])
                 }
                 group item by item.UserId into g
