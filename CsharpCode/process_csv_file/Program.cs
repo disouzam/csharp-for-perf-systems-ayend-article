@@ -12,10 +12,11 @@ public static class Program
         Console.WriteLine("Reference: Ayende's article on https://www.codemag.com/article/2403091");
 
         using var fs = new FileStream(path: "E:\\GitHubRepos\\csharp-for-perf-systems-ayende-article\\data.csv.gz", mode: FileMode.Open);
-        await foreach (var line in ZippedFileProcessing.GzipReadlAllLinesAsync(fs))
-        {
-            // Do nothing
-        }
+
+        var userSalesConsolidation = DataConsolidation.Linq(fs);
+        var result = userSalesConsolidation.Result;
+
+        Console.WriteLine(result.Count);
         Console.WriteLine("The end");
     }
 }
