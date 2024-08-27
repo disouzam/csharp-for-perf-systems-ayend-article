@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
+using System.IO.Pipelines;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -62,5 +64,33 @@ internal static class DataConsolidation
             stats.Quantity += quantity;
         }
         return sales;
+    }
+
+    /// <summary>
+    /// Listing 4: Reading from the file using PipeReader
+    /// </summary>
+    /// <param name="input"></param>
+    /// <remarks>
+    /// Code extracted from https://www.codemag.com/article/2403091
+    /// </remarks>
+    public static async ValueTask<Dictionary<long, UserSalesStruct>> PipelineAsync(Stream input)
+    {
+        using var gzipStream = new GZipStream(input, CompressionMode.Decompress);
+        var pipeReader = PipeReader.Create(gzipStream,
+          new StreamPipeReaderOptions(bufferSize: 64 * 1024));
+
+        var header = false;
+        var salesData = new Dictionary<long, UserSalesStruct>();
+        while (true)
+        {
+            var valueTask = pipeReader.ReadAsync();
+            var read = valueTask.IsCompleted ? valueTask.Result :
+              await valueTask.AsTask();
+            ProcessLines(pipeReader, read, salesData, ref header);
+            if (read.IsCompleted)
+                break;
+        }
+
+        return salesData;
     }
 }
