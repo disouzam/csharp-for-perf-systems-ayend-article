@@ -6,6 +6,7 @@ public static class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        var message = "Hello, World!";
+        Console.WriteLine(message);
     }
 }
