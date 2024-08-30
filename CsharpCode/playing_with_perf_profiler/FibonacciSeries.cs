@@ -2,7 +2,7 @@
 
 internal static class FibonacciSeries
 {
-    public static int GetFiboNumber(int order)
+    public static long GetFiboNumber(int order)
     {
         if (order == 0)
         {
