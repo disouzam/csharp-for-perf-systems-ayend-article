@@ -6,7 +6,20 @@ public static class Program
 {
     public static void Main(string[] args)
     {
-        var message = "Hello, World!";
+        var message = "Calculation of Fibonnacci number!";
         Console.WriteLine(message);
+
+        Console.WriteLine("Type the position to which you want a Fibonacci number...");
+        var orderAsString = Console.ReadLine();
+
+        int order;
+        var parseResult = int.TryParse(orderAsString, out order);
+
+        if (!parseResult)
+        {
+            return;
+        }
+
+        Console.WriteLine(FibonacciSeries.GetFiboNumber(order));
     }
 }
