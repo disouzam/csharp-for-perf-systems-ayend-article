@@ -19,7 +19,7 @@ public static class Program
         //{
         //    return;
         //}
-
-        Console.WriteLine(FibonacciSeries.GetFiboNumber(50));
+        var localString = string.Empty;
+        Console.WriteLine(FibonacciSeries.GetFiboNumber(50, out localString));
     }
 }
